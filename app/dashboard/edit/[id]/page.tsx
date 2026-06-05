@@ -51,7 +51,7 @@ export default function EditArticlePage() {
 
     setSaving(true);
 
-    const res = await fetch(`http://127.0.0.1:8000/articles/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/articles/`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

@@ -30,7 +30,7 @@ export default function DashboardPage() {
 
   const fetchArticles = async (authToken: string) => {
     try {
-      const res = await fetch("http://127.0.0.1:8000/articles/", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/articles/`, {
         headers: { Authorization: `Bearer ${authToken}` },
       });
       if (res.ok) {
