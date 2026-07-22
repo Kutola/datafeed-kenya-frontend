@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
@@ -13,10 +13,10 @@ export default function LoginPage() {
     e.preventDefault();
 
     const formData = new URLSearchParams();
-    formData.append("username", username);
+    formData.append("email", email);
     formData.append("password", password);
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/articles/`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: formData.toString(),
@@ -41,8 +41,8 @@ export default function LoginPage() {
           <label className="block text-sm font-medium mb-1">Username</label>
           <input
             type="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="w-full border rounded px-3 py-2"
             required
           />
