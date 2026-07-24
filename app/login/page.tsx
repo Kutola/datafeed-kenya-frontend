@@ -12,30 +12,35 @@ export default function LoginPage() {
   async function handleSubmit(e: React.SubmitEvent) {
     e.preventDefault();
 
-    // OAuth2PasswordRequestForm ALWAYS requires field named "username"
-    // even if we're actually sending an email address
     const formData = new URLSearchParams();
     formData.append("username", email);
     formData.append("password", password);
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: formData.toString(),
-    });
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: formData.toString(),
+        }
+      );
 
-    if (response.ok) {
-      const data = await response.json();
-      localStorage.setItem("token", data.access_token);
-      router.push("/dashboard");
-    } else {
-      setError("Invalid email or password");
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem("token", data.access_token);
+        router.push("/dashboard");
+      } else {
+        setError("Invalid email or password");
+      }
+    } catch {
+      setError("Network error. Please try again.");
     }
   }
 
   return (
     <main className="max-w-md mx-auto px-4 py-16">
-      <h1 className="text-2xl font-bold mb-8">Login</h1>
+      <h1 className="text-2xl font-bold mb-8">User Login</h1>
       {error && <p className="text-red-500 mb-4">{error}</p>}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -45,6 +50,7 @@ export default function LoginPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="w-full border rounded px-3 py-2"
+            placeholder="you@example.com"
             required
           />
         </div>
