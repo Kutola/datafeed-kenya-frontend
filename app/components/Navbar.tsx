@@ -12,7 +12,7 @@ export default function Navbar() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
-  }); // no [] — runs after every render
+  }, []); // runs once on mount only
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -27,19 +27,19 @@ export default function Navbar() {
         <Link href="/" className="flex items-center gap-3">
           <Image
             src="/logo/3q-xM2Md_400x400.jpg"
-            alt="Newsfeed Kenya"
+            alt="DataFeed Kenya"
             width={44}
             height={44}
             className="rounded-3xl shadow-lg"
           />
           <div className="leading-none">
-            <span className="font-black text-3xl tracking-[-2px]">Data</span>
-            <span className="font-black text-3xl tracking-[-2px] text-green-500">Feed</span>
-            <span className="font-black text-3xl tracking-[-2px] text-red-500">Kenya</span>
+            <span className="font-black text-xl md:text-3xl tracking-[-2px]">Data</span>
+            <span className="font-black text-xl md:text-3xl tracking-[-2px] text-green-500">Feed</span>
+            <span className="font-black text-xl md:text-3xl tracking-[-2px] text-red-500">Kenya</span>
           </div>
         </Link>
 
-        <div className="flex items-center gap-8 text-sm">
+        <div className="flex items-center gap-4 md:gap-8 text-sm">
           <Link
             href="/"
             style={{ color: "var(--text-secondary)" }}
